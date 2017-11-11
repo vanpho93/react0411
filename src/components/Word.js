@@ -7,7 +7,7 @@ import React, { Component } from 'react';
     //     </div>
     // );
 // export default Word;
-class Word extends Component {
+export default class Word extends Component {
     render() {
         return (
             <div>
@@ -17,4 +17,3 @@ class Word extends Component {
         );
     }
 }
-export default Word;

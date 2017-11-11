@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Word from './components/Word';
+import ConditionCom from './components/ConditionCom';
+
 // function component
   // class component
   // function Word(props) {
@@ -32,12 +34,7 @@ import Word from './components/Word';
 class App extends Component {
   render() {
     return (
-      <div>
-        <Word en="one" vn="mot" color="green" />
-        <Word en="two" vn="hai" color="red" />
-        <Word en="three" vn="ba" color="yellow" />
-        <button className="btn btn-success">Hello</button>
-      </div>
+      <ConditionCom />
     );
   }
 }
