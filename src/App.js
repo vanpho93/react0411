@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Word from './components/Word';
+// import Word from './components/Word';
 // import ConditionCom from './components/ConditionCom';
 import ListWords from './components/ListWords';
-
+// import Box from './components/Box';
 // function component
   // class component
   // function Word(props) {

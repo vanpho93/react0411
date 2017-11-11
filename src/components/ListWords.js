@@ -18,11 +18,31 @@ class ListWords extends Component {
             ]
         }
     }
+
+    removeWord(en) {
+        const { words } = this.state;
+        this.setState({
+            words: words.filter(x => x.en !== en ) 
+        })
+    }
+
     render() {
+        const { words } = this.state;
         return (
-            <div>
+            <div style={{ margin: 10 }}>
                 List Words Component
-                { this.state.words.map(word => <Word key={word.en} spot={word} />) }
+                { words.map(word => (
+                    <div key={word.en}>
+                        <h3>{word.en}</h3>
+                        <p>{word.vn}</p>
+                        <button
+                            className="btn btn-danger"
+                            onClick={() => this.removeWord(word.en)}
+                        >
+                            remove
+                        </button>
+                    </div>
+                )) }
             </div>
         );
     }
