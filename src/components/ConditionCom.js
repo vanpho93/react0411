@@ -9,23 +9,26 @@ class ConditionCom extends Component {
         };
     }
     render() {
-        const color = this.state.value % 2 === 0 ? 'green' : 'red';
-        const display = this.state.isShowText ? 'block' : 'none';
+        // const value = this.state.value;
+        // const isShowText = this.state.isShowText;
+        const { value, isShowText } = this.state;
+        const color = value % 2 === 0 ? 'green' : 'red';
+        const display = isShowText ? 'block' : 'none';
         return (
             <div>
-                <h3 style={{ color }}>{this.state.value}</h3>
+                <h3 style={{ color }}>{value}</h3>
                 <button
                     className="btn btn-success"
-                    onClick={() => this.setState({ value: this.state.value + 1 })}
+                    onClick={() => this.setState({ value: value + 1 })}
                 >
                     Increase
                 </button>
-                <h3 style={{ display }}>Khoa Pham Training</h3>
+                { isShowText ? <h3>Khoa Pham Training</h3> : null }
                 <button
                     className="btn btn-success"
-                    onClick={() => this.setState({ isShowText: !this.state.isShowText })}
+                    onClick={() => this.setState({ isShowText: !isShowText })}
                 >
-                    { this.state.isShowText ? 'Hide' : 'Show' }
+                    { isShowText ? 'Hide' : 'Show' }
                 </button>
             </div>
         );
