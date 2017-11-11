@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import Word from './components/Word';
 // import ConditionCom from './components/ConditionCom';
-// import ListWords from './components/ListWords';
+import ListWords from './components/ListWords';
 // import Box from './components/Box';
 import TextInput from './components/TextInput';
 // function component
@@ -36,7 +36,7 @@ import TextInput from './components/TextInput';
 class App extends Component {
   render() {
     return (
-      <TextInput />
+      <ListWords />
     );
   }
 }

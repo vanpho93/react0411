@@ -15,8 +15,20 @@ class ListWords extends Component {
                 { en: 'one', vn: 'mot' },
                 { en: 'two', vn: 'hai' },
                 { en: 'three', vn: 'ba' },
-            ]
+            ],
+            txtEn: '',
+            txtVn: ''
         }
+        this.addWord = this.addWord.bind(this);
+    }
+
+    addWord() {
+        const { txtEn, txtVn, words } = this.state;
+        this.setState({
+            words: words.concat({ en: txtEn, vn: txtVn }),
+            txtEn: '',
+            txtVn: ''
+        });
     }
 
     removeWord(en) {
@@ -31,6 +43,21 @@ class ListWords extends Component {
         return (
             <div style={{ margin: 10 }}>
                 List Words Component
+                <input
+                    className="form-control"
+                    placeholder="English"
+                    value={this.state.txtEn}
+                    onChange={event => this.setState({ txtEn: event.target.value })}
+                />
+                <br />
+                <input
+                    className="form-control"
+                    placeholder="Vietnamese"
+                    value={this.state.txtVn}
+                    onChange={event => this.setState({ txtVn: event.target.value })}
+                />
+                <br />
+                <button className="btn btn-success" onClick={this.addWord}>Add word</button>
                 { words.map(word => (
                     <div key={word.en}>
                         <h3>{word.en}</h3>
