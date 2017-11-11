@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 // import Word from './components/Word';
 // import ConditionCom from './components/ConditionCom';
-import ListWords from './components/ListWords';
+// import ListWords from './components/ListWords';
 // import Box from './components/Box';
+import TextInput from './components/TextInput';
 // function component
   // class component
   // function Word(props) {
@@ -35,7 +36,7 @@ import ListWords from './components/ListWords';
 class App extends Component {
   render() {
     return (
-      <ListWords />
+      <TextInput />
     );
   }
 }
