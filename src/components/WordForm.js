@@ -17,6 +17,7 @@ export default class WordForm extends Component {
             isMemorized: false
         });
         this.setState({ txtEn: '', txtVn: '' });
+        this.props.onHideForm();
     }
 
     render() {
@@ -41,6 +42,12 @@ export default class WordForm extends Component {
                     onClick={this.addWord}
                 >
                     Add word
+                </button>
+                <button
+                    className="btn btn-warning" 
+                    onClick={this.props.onHideForm}
+                >
+                    Cancel
                 </button>
             </div>
         );

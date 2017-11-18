@@ -19,6 +19,7 @@ class ListWords extends Component {
         this.toggleStatus = this.toggleStatus.bind(this);
         this.onRemoveWord = this.onRemoveWord.bind(this);
         this.onChangeFilterStatus = this.onChangeFilterStatus.bind(this);
+        this.onHideForm = this.onHideForm.bind(this);
     }
 
     onAdd(word) {
@@ -49,7 +50,7 @@ class ListWords extends Component {
 
     getForm() {
         const { isShowForm } = this.state;
-        if(isShowForm) return <WordForm onAdd={this.onAdd} />;
+        if(isShowForm) return <WordForm onAdd={this.onAdd} onHideForm={this.onHideForm} />;
         return (
             <button
                 className="btn btn-default"
@@ -59,6 +60,11 @@ class ListWords extends Component {
             </button>
         );
     }
+
+    onHideForm() {
+        this.setState({ isShowForm: false });
+    }
+
     render() {
         const { words, filterStatus, isShowForm } = this.state;
         const wordsForShow = words.filter(word => {
@@ -72,7 +78,6 @@ class ListWords extends Component {
                     filterStatus={filterStatus}
                     onChangeFilterStatus={this.onChangeFilterStatus}
                 />
-                <br /><br />
                 { this.getForm() }
                 { wordsForShow.map(word => <Word key={word.en} word={word} onRemoveWord={this.onRemoveWord} />) }
             </div>

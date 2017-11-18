@@ -27,6 +27,7 @@ export default class WordFilter extends Component {
                 >
                     Show forgot
                 </button>
+                <br /><br />
             </div>
         );
     }
