@@ -57,6 +57,7 @@ class ListWords extends Component {
                 <p>{word.vn}</p>
                 <button
                     className="btn btn-danger"
+                    style={{ margin: 3 }}
                     onClick={() => this.removeWord(word.en)}
                 >
                     remove
@@ -81,7 +82,10 @@ class ListWords extends Component {
 
         return (
             <div style={{ margin: 10 }}>
-                List Words Component
+                <button className="btn btn-primary">Show All</button>
+                <button className="btn btn-success" style={{ margin: 3 }}>Show Memorized</button>
+                <button className="btn btn-warning">Show forgot</button>
+                <br /><br />
                 <input
                     className="form-control"
                     placeholder="English"
