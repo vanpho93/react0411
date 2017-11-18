@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Word from './Word';
 import WordForm from './WordForm';
+import WordFilter from './WordFilter';
 
 class ListWords extends Component {
     constructor(props) {
@@ -16,12 +17,17 @@ class ListWords extends Component {
         this.onAdd = this.onAdd.bind(this);
         this.toggleStatus = this.toggleStatus.bind(this);
         this.onRemoveWord = this.onRemoveWord.bind(this);
+        this.onChangeFilterStatus = this.onChangeFilterStatus.bind(this);
     }
 
     onAdd(word) {
         this.setState({
             words: [word, ...this.state.words]
         });
+    }
+
+    onChangeFilterStatus(newStatus) {
+        this.setState({ filterStatus: newStatus })
     }
 
     onRemoveWord(en) {
@@ -39,8 +45,10 @@ class ListWords extends Component {
         });
         this.setState({ words: newWords });
     }
+
     render() {
         const { words, filterStatus } = this.state;
+
         const wordsForShow = words.filter(word => {
             if(filterStatus === 'SHOW_ALL') return true;
             if(filterStatus === 'SHOW_FORGOT') return !word.isMemorized;
@@ -49,33 +57,10 @@ class ListWords extends Component {
 
         return (
             <div style={{ margin: 10 }}>
-                <select className="form-control" onChange={event => this.setState({ filterStatus: event.target.value })}>
-                    <option value="SHOW_ALL">SHOW ALL</option>
-                    <option value="SHOW_MEMORIZED">SHOW MEMORIZED</option>
-                    <option value="SHOW_FORGOT">SHOW FORGOT</option>
-                </select>
-                <button
-                    className="btn btn-primary"
-                    onClick={() => this.setState({ filterStatus: 'SHOW_ALL' })}
-                    disabled={filterStatus === 'SHOW_ALL'}
-                >
-                    Show All
-                </button>
-                <button
-                    className="btn btn-success" 
-                    onClick={() => this.setState({ filterStatus: 'SHOW_MEMORIZED' })}
-                    style={{ margin: 3 }}
-                    disabled={filterStatus === 'SHOW_MEMORIZED'}
-                >
-                    Show Memorized
-                </button>
-                <button
-                    className="btn btn-warning" 
-                    onClick={() => this.setState({ filterStatus: 'SHOW_FORGOT' })}
-                    disabled={filterStatus === 'SHOW_FORGOT'}
-                >
-                    Show forgot
-                </button>
+                <WordFilter
+                    filterStatus={filterStatus}
+                    onChangeFilterStatus={this.onChangeFilterStatus}
+                />
                 <br /><br />
                 <WordForm onAdd={this.onAdd} />
                 { wordsForShow.map(word => <Word key={word.en} word={word} onRemoveWord={this.onRemoveWord} />) }
