@@ -20,6 +20,7 @@ class ListWords extends Component {
             txtVn: ''
         }
         this.addWord = this.addWord.bind(this);
+        this.toggleStatus = this.toggleStatus.bind(this);
     }
 
     addWord() {
@@ -36,6 +37,15 @@ class ListWords extends Component {
         this.setState({
             words: words.filter(x => x.en !== en ) 
         })
+    }
+
+    toggleStatus(en) {
+        const { words } = this.state;
+        const newWords = this.state.words.map(word => {
+            if (word.en !== en) return word;
+            return { ...word, isMemorized: !word.isMemorized }
+        });
+        this.setState({ words: newWords });
     }
 
     render() {
@@ -70,6 +80,7 @@ class ListWords extends Component {
                         </button>
                         <button
                             className="btn btn-primary"
+                            onClick={() => this.toggleStatus(word.en)}
                         >
                             toggle
                         </button>
