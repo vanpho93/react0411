@@ -9,7 +9,7 @@ import TextInput from './components/TextInput';
 class App extends Component {
   render() {
     return (
-      <MyBox />
+      <ListWords />
     );
   }
 }
