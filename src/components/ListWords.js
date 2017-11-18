@@ -16,6 +16,7 @@ class ListWords extends Component {
         }
         this.addWord = this.addWord.bind(this);
         this.toggleStatus = this.toggleStatus.bind(this);
+        this.onRemoveWord = this.onRemoveWord.bind(this);
     }
 
     addWord() {
@@ -27,7 +28,7 @@ class ListWords extends Component {
         });
     }
 
-    removeWord(en) {
+    onRemoveWord(en) {
         const { words } = this.state;
         this.setState({
             words: words.filter(x => x.en !== en ) 
@@ -95,7 +96,7 @@ class ListWords extends Component {
                 />
                 <br />
                 <button className="btn btn-success" onClick={this.addWord}>Add word</button>
-                { wordsForShow.map(word => <Word key={word.en} word={word} />) }
+                { wordsForShow.map(word => <Word key={word.en} word={word} onRemoveWord={this.onRemoveWord} />) }
             </div>
         );
     }

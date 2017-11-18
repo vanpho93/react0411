@@ -8,7 +8,7 @@ import TextInput from './components/TextInput';
 class App extends Component {
   render() {
     return (
-      <Box />
+      <ListWords />
     );
   }
 }

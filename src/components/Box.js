@@ -6,6 +6,7 @@ class Box extends Component {
         this.state = { value: 10 };
         this.onAdd = this.onAdd.bind(this);
         this.onSub = this.onSub.bind(this);
+        this.onChangeValue = this.onChangeValue.bind(this);
     }
 
     onAdd() {
@@ -18,6 +19,12 @@ class Box extends Component {
         this.setState({ value: value - 1 });
     }
 
+    onChangeValue(isAdd) {
+        const { value } = this.state;
+        if (isAdd) return this.setState({ value: value + 1 });
+        this.setState({ value: value - 1 });
+    }
+
     render() {
         const { value } = this.state;
         return (
@@ -25,7 +32,9 @@ class Box extends Component {
                 <h3>{value}</h3>
                 <button onClick={this.onAdd}>Tăng</button>
                 <button onClick={this.onSub}>Giảm</button>
-                <BoxController parent={this} />
+                <BoxController
+                    onChangeValue={this.onChangeValue}
+                />
             </div>
         );
     }
@@ -35,24 +44,19 @@ export default Box;
 
 class BoxController extends Component {
     render() {
-        const { parent } = this.props;
         return (
             <div>
                 <h3>Box Controller</h3>
                 <button
                     className="btn btn-success"
                     style={{ margin: 10 }}
-                    onClick={() => parent.setState({
-                        value: parent.state.value + 1
-                    })}
+                    onClick={() => this.props.onChangeValue(true)}
                 >
                     Tăng
                 </button>
                 <button
                     className="btn btn-warning"
-                    onClick={() => parent.setState({
-                        value: parent.state.value - 1
-                    })}
+                    onClick={() => this.props.onChangeValue(false)}
                 >
                     Giảm
                 </button>
