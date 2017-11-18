@@ -12,9 +12,9 @@ class ListWords extends Component {
         super(props);
         this.state = {
             words: [
-                { en: 'one', vn: 'mot' },
-                { en: 'two', vn: 'hai' },
-                { en: 'three', vn: 'ba' },
+                { en: 'one', vn: 'mot', isMemorized: true },
+                { en: 'two', vn: 'hai', isMemorized: false },
+                { en: 'three', vn: 'ba', isMemorized: true },
             ],
             txtEn: '',
             txtVn: ''
@@ -60,13 +60,18 @@ class ListWords extends Component {
                 <button className="btn btn-success" onClick={this.addWord}>Add word</button>
                 { words.map(word => (
                     <div key={word.en}>
-                        <h3>{word.en}</h3>
+                        <h3 style={{ color: word.isMemorized ? 'green' : 'red' }}>{word.en}</h3>
                         <p>{word.vn}</p>
                         <button
                             className="btn btn-danger"
                             onClick={() => this.removeWord(word.en)}
                         >
                             remove
+                        </button>
+                        <button
+                            className="btn btn-primary"
+                        >
+                            toggle
                         </button>
                     </div>
                 )) }
