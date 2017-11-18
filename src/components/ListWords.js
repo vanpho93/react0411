@@ -20,7 +20,7 @@ class ListWords extends Component {
 
     onAdd(word) {
         this.setState({
-            words: this.state.words.concat(word),
+            words: [word, ...this.state.words]
         });
     }
 

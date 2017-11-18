@@ -6,8 +6,19 @@ export default class WordForm extends Component {
         this.state = {
             txtEn: '',
             txtVn: '',
-        }
+        };
+        this.addWord = this.addWord.bind(this);
     }
+
+    addWord() {
+        this.props.onAdd({
+            en: this.state.txtEn,
+            vn: this.state.txtVn,
+            isMemorized: false
+        });
+        this.setState({ txtEn: '', txtVn: '' });
+    }
+
     render() {
         return (
             <div>
@@ -27,9 +38,7 @@ export default class WordForm extends Component {
                 <br />
                 <button
                     className="btn btn-success"
-                    onClick={() => {
-                        this.props.onAdd({ en: this.state.txtEn, vn: this.state.txtVn, isMemorized: false })
-                    }}
+                    onClick={this.addWord}
                 >
                     Add word
                 </button>
