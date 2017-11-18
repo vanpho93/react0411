@@ -12,7 +12,8 @@ class ListWords extends Component {
                 { en: 'two', vn: 'hai', isMemorized: false },
                 { en: 'three', vn: 'ba', isMemorized: true },
             ],
-            filterStatus: 'SHOW_ALL' // 'SHOW_MEMORIZED' 'SHOW_FORGET'
+            filterStatus: 'SHOW_ALL',
+            isShowForm: false
         }
         this.onAdd = this.onAdd.bind(this);
         this.toggleStatus = this.toggleStatus.bind(this);
@@ -46,15 +47,25 @@ class ListWords extends Component {
         this.setState({ words: newWords });
     }
 
+    getForm() {
+        const { isShowForm } = this.state;
+        if(isShowForm) return <WordForm onAdd={this.onAdd} />;
+        return (
+            <button
+                className="btn btn-default"
+                onClick={() => this.setState({ isShowForm: true })}
+            >
+                Show Form
+            </button>
+        );
+    }
     render() {
-        const { words, filterStatus } = this.state;
-
+        const { words, filterStatus, isShowForm } = this.state;
         const wordsForShow = words.filter(word => {
             if(filterStatus === 'SHOW_ALL') return true;
             if(filterStatus === 'SHOW_FORGOT') return !word.isMemorized;
             return word.isMemorized;
         });
-
         return (
             <div style={{ margin: 10 }}>
                 <WordFilter
@@ -62,7 +73,7 @@ class ListWords extends Component {
                     onChangeFilterStatus={this.onChangeFilterStatus}
                 />
                 <br /><br />
-                <WordForm onAdd={this.onAdd} />
+                { this.getForm() }
                 { wordsForShow.map(word => <Word key={word.en} word={word} onRemoveWord={this.onRemoveWord} />) }
             </div>
         );

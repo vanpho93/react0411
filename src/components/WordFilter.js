@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class WordFilter extends Component {
     render() {
-        const { filterStatus, onChangeFilterStatus } = this.props
+        const { filterStatus, onChangeFilterStatus } = this.props;
         return (
             <div>
                 <button
