@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 
-// const Word = (props) => (
-    //     <div>
-    //         <h3 style={{ color: props.color }}>{props.en}</h3>
-    //         <p>{props.vn}</p>
-    //     </div>
-    // );
-// export default Word;
 export default class Word extends Component {
     render() {
+        const { word } = this.props;
         return (
             <div>
-                <h3 style={{ color: this.props.color }}>{this.props.en}</h3>
-                <p>{this.props.vn}</p>
+                <h3 style={{ color: word.isMemorized ? 'green' : 'red' }}>{word.en}</h3>
+                <p>{word.vn}</p>
+                <button
+                    className="btn btn-danger"
+                    style={{ margin: 3 }}
+                >
+                    remove
+                </button>
+                <button
+                    className="btn btn-primary"
+                >
+                    toggle
+                </button>
             </div>
         );
     }

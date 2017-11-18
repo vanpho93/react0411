@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-
-const Word = ({ spot }) => (
-    <div>
-        <h3>{spot.en}</h3>
-        <p>{spot.vn}</p>
-    </div>
-);
+import Word from './Word';
 
 class ListWords extends Component {
     constructor(props) {
@@ -22,7 +16,6 @@ class ListWords extends Component {
         }
         this.addWord = this.addWord.bind(this);
         this.toggleStatus = this.toggleStatus.bind(this);
-        this.genList = this.genList.bind(this);
     }
 
     addWord() {
@@ -49,29 +42,6 @@ class ListWords extends Component {
         });
         this.setState({ words: newWords });
     }
-
-    genList(word) {
-        return (
-            <div key={word.en}>
-                <h3 style={{ color: word.isMemorized ? 'green' : 'red' }}>{word.en}</h3>
-                <p>{word.vn}</p>
-                <button
-                    className="btn btn-danger"
-                    style={{ margin: 3 }}
-                    onClick={() => this.removeWord(word.en)}
-                >
-                    remove
-                </button>
-                <button
-                    className="btn btn-primary"
-                    onClick={() => this.toggleStatus(word.en)}
-                >
-                    toggle
-                </button>
-            </div>
-        );
-    }
-
     render() {
         const { words, filterStatus } = this.state;
         const wordsForShow = words.filter(word => {
@@ -125,7 +95,7 @@ class ListWords extends Component {
                 />
                 <br />
                 <button className="btn btn-success" onClick={this.addWord}>Add word</button>
-                { wordsForShow.map(this.genList) }
+                { wordsForShow.map(word => <Word word={word} />) }
             </div>
         );
     }
