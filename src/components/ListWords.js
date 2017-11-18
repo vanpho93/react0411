@@ -76,15 +76,39 @@ class ListWords extends Component {
         const { words, filterStatus } = this.state;
         const wordsForShow = words.filter(word => {
             if(filterStatus === 'SHOW_ALL') return true;
-            if(filterStatus === 'SHOW_FORGET') return !word.isMemorized;
+            if(filterStatus === 'SHOW_FORGOT') return !word.isMemorized;
             return word.isMemorized;
         });
 
         return (
             <div style={{ margin: 10 }}>
-                <button className="btn btn-primary">Show All</button>
-                <button className="btn btn-success" style={{ margin: 3 }}>Show Memorized</button>
-                <button className="btn btn-warning">Show forgot</button>
+                <select className="form-control" onChange={event => this.setState({ filterStatus: event.target.value })}>
+                    <option value="SHOW_ALL">SHOW ALL</option>
+                    <option value="SHOW_MEMORIZED">SHOW MEMORIZED</option>
+                    <option value="SHOW_FORGOT">SHOW FORGOT</option>
+                </select>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => this.setState({ filterStatus: 'SHOW_ALL' })}
+                    disabled={filterStatus === 'SHOW_ALL'}
+                >
+                    Show All
+                </button>
+                <button
+                    className="btn btn-success" 
+                    onClick={() => this.setState({ filterStatus: 'SHOW_MEMORIZED' })}
+                    style={{ margin: 3 }}
+                    disabled={filterStatus === 'SHOW_MEMORIZED'}
+                >
+                    Show Memorized
+                </button>
+                <button
+                    className="btn btn-warning" 
+                    onClick={() => this.setState({ filterStatus: 'SHOW_FORGOT' })}
+                    disabled={filterStatus === 'SHOW_FORGOT'}
+                >
+                    Show forgot
+                </button>
                 <br /><br />
                 <input
                     className="form-control"
