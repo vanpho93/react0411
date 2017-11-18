@@ -17,10 +17,12 @@ class ListWords extends Component {
                 { en: 'three', vn: 'ba', isMemorized: true },
             ],
             txtEn: '',
-            txtVn: ''
+            txtVn: '',
+            filterStatus: 'SHOW_ALL' // 'SHOW_MEMORIZED' 'SHOW_FORGET'
         }
         this.addWord = this.addWord.bind(this);
         this.toggleStatus = this.toggleStatus.bind(this);
+        this.genList = this.genList.bind(this);
     }
 
     addWord() {
@@ -48,8 +50,35 @@ class ListWords extends Component {
         this.setState({ words: newWords });
     }
 
+    genList(word) {
+        return (
+            <div key={word.en}>
+                <h3 style={{ color: word.isMemorized ? 'green' : 'red' }}>{word.en}</h3>
+                <p>{word.vn}</p>
+                <button
+                    className="btn btn-danger"
+                    onClick={() => this.removeWord(word.en)}
+                >
+                    remove
+                </button>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => this.toggleStatus(word.en)}
+                >
+                    toggle
+                </button>
+            </div>
+        );
+    }
+
     render() {
-        const { words } = this.state;
+        const { words, filterStatus } = this.state;
+        const wordsForShow = words.filter(word => {
+            if(filterStatus === 'SHOW_ALL') return true;
+            if(filterStatus === 'SHOW_FORGET') return !word.isMemorized;
+            return word.isMemorized;
+        });
+
         return (
             <div style={{ margin: 10 }}>
                 List Words Component
@@ -68,24 +97,7 @@ class ListWords extends Component {
                 />
                 <br />
                 <button className="btn btn-success" onClick={this.addWord}>Add word</button>
-                { words.map(word => (
-                    <div key={word.en}>
-                        <h3 style={{ color: word.isMemorized ? 'green' : 'red' }}>{word.en}</h3>
-                        <p>{word.vn}</p>
-                        <button
-                            className="btn btn-danger"
-                            onClick={() => this.removeWord(word.en)}
-                        >
-                            remove
-                        </button>
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => this.toggleStatus(word.en)}
-                        >
-                            toggle
-                        </button>
-                    </div>
-                )) }
+                { wordsForShow.map(this.genList) }
             </div>
         );
     }
