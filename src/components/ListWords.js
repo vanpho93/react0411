@@ -95,7 +95,7 @@ class ListWords extends Component {
                 />
                 <br />
                 <button className="btn btn-success" onClick={this.addWord}>Add word</button>
-                { wordsForShow.map(word => <Word word={word} />) }
+                { wordsForShow.map(word => <Word key={word.en} word={word} />) }
             </div>
         );
     }
