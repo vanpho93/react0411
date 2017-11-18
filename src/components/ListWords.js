@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Word from './Word';
+import WordForm from './WordForm';
 
 class ListWords extends Component {
     constructor(props) {
@@ -10,21 +11,16 @@ class ListWords extends Component {
                 { en: 'two', vn: 'hai', isMemorized: false },
                 { en: 'three', vn: 'ba', isMemorized: true },
             ],
-            txtEn: '',
-            txtVn: '',
             filterStatus: 'SHOW_ALL' // 'SHOW_MEMORIZED' 'SHOW_FORGET'
         }
-        this.addWord = this.addWord.bind(this);
+        this.onAdd = this.onAdd.bind(this);
         this.toggleStatus = this.toggleStatus.bind(this);
         this.onRemoveWord = this.onRemoveWord.bind(this);
     }
 
-    addWord() {
-        const { txtEn, txtVn, words } = this.state;
+    onAdd(word) {
         this.setState({
-            words: words.concat({ en: txtEn, vn: txtVn }),
-            txtEn: '',
-            txtVn: ''
+            words: this.state.words.concat(word),
         });
     }
 
@@ -81,21 +77,7 @@ class ListWords extends Component {
                     Show forgot
                 </button>
                 <br /><br />
-                <input
-                    className="form-control"
-                    placeholder="English"
-                    value={this.state.txtEn}
-                    onChange={event => this.setState({ txtEn: event.target.value })}
-                />
-                <br />
-                <input
-                    className="form-control"
-                    placeholder="Vietnamese"
-                    value={this.state.txtVn}
-                    onChange={event => this.setState({ txtVn: event.target.value })}
-                />
-                <br />
-                <button className="btn btn-success" onClick={this.addWord}>Add word</button>
+                <WordForm onAdd={this.onAdd} />
                 { wordsForShow.map(word => <Word key={word.en} word={word} onRemoveWord={this.onRemoveWord} />) }
             </div>
         );
