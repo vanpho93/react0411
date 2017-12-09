@@ -5,18 +5,29 @@ import WordFilter from './WordFilter';
 import { connect } from 'react-redux';
 
 class ListWords extends Component {
+    constructor(props) {
+        super(props);
+        this.toggleForm = this.toggleForm.bind(this);
+    }
+    toggleForm() {
+        this.props.dispatch({ type: 'TOGGLE_FORM' });
+    }
     render() {
-        const { words } = this.props;
+        const { words, isShowForm } = this.props;
         return (
             <div style={{ margin: 10 }}>
-                <WordForm />
+                { isShowForm ? <WordForm /> : (
+                    <button className="btn btn-default" onClick={this.toggleForm}>
+                        Show Form
+                    </button>
+                )}
                 { words.map(word => <Word key={word.en} word={word} />) }
             </div>
         );
     }
 }
 
-const mapState = state => ({ words: state.words });
+const mapState = state => ({ words: state.words, isShowForm: state.isShowForm });
 
 export default connect(mapState)(ListWords);
 
