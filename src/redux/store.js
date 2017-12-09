@@ -1,34 +1,5 @@
 import { createStore, combineReducers } from 'redux';
-
-const defaultState = {
-    words: [
-        { en: 'one', vn: 'mot', isMemorized: false },
-        { en: 'two', vn: 'hai', isMemorized: false },
-        { en: 'three', vn: 'ba', isMemorized: true },
-    ],
-    isShowForm: false,
-    filterStatus: 'SHOW_ALL' // SHOW_FORGOT, SHOW_MEMORIZED
-};
-
-const wordsReducer = (state = defaultState.words, action) => {
-    if (action.type === 'REMOVE_WORD') return state.filter(word => word.en !== action.en);
-    if (action.type === 'TOGGLE_IS_MEMORIZED') return state.map(word => {
-            if (word.en !== action.en) return word;
-            return { ...word, isMemorized: !word.isMemorized };
-    });
-    if (action.type === 'ADD_WORD') return [action.word, ...state];
-    return state;
-}
-
-const isShowFormReducer = (state = false, action) => {
-    if (action.type === 'TOGGLE_FORM') return !state;
-    return state;
-}
-
-const filterStatusReducer = (state = 'SHOW_ALL', action) => {
-    if (action.type === 'SET_FILTER_STATUS') return action.filterStatus;
-    return state;
-}
+import { reducer } from './reducer/reducer';
 
 /*
 const reducer = (state = defaultState, action) => {
@@ -49,12 +20,6 @@ const reducer = (state = defaultState, action) => {
     return state;
 };
 */
-
-const reducer = combineReducers({
-    words: wordsReducer,
-    isShowForm: isShowFormReducer,
-    filterStatus: filterStatusReducer
-});
 
 const store = createStore(reducer);
 
