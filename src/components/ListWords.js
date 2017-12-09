@@ -2,49 +2,29 @@ import React, { Component } from 'react';
 import Word from './Word';
 import WordForm from './WordForm';
 import WordFilter from './WordFilter';
+import { connect } from 'react-redux';
 
 class ListWords extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            words: [
-                { en: 'one', vn: 'mot', isMemorized: true },
-                { en: 'two', vn: 'hai', isMemorized: false },
-                { en: 'three', vn: 'ba', isMemorized: true },
-            ],
-            filterStatus: 'SHOW_ALL',
-            isShowForm: false
-        }
-    }
-
-    getForm() {
-        const { isShowForm } = this.state;
-        if(isShowForm) return <WordForm />;
-        return (
-            <button
-                className="btn btn-default"
-                onClick={() => this.setState({ isShowForm: true })}
-            >
-                Show Form
-            </button>
-        );
-    }
-
     render() {
-        const { words, filterStatus } = this.state;
-        const wordsForShow = words.filter(word => {
-            if(filterStatus === 'SHOW_ALL') return true;
-            if(filterStatus === 'SHOW_FORGOT') return !word.isMemorized;
-            return word.isMemorized;
-        });
+        const { words } = this.props;
         return (
             <div style={{ margin: 10 }}>
-                <WordFilter filterStatus={filterStatus} />
-                { this.getForm() }
-                { wordsForShow.map(word => <Word key={word.en} word={word} />) }
+                <WordForm />
+                { words.map(word => <Word key={word.en} word={word} />) }
             </div>
         );
     }
 }
 
-export default ListWords;
+const mapState = state => ({ words: state.words });
+
+export default connect(mapState)(ListWords);
+
+
+/*
+1. Cai dat redux react-redux
+2. Tao thu muc redux, tao file store.js, import createStore
+3. Tao defaultState, reducer function 'return state'
+4. Dung Provider va connect
+5. connect ListWords component voi store
+*/
