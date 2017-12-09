@@ -3,9 +3,13 @@ import Word from './Word';
 import WordForm from './WordForm';
 import WordFilter from './WordFilter';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import * as actionCreactors from '../redux/actionCreactors';
 
 class ListWords extends Component {
+    componentDidMount() {
+        this.props.getWords();
+    }
     render() {
         const { words, isShowForm, filterStatus } = this.props;
         const filteredWords = words.filter(word => {

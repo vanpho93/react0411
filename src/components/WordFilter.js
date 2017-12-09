@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actionCreactors from '../redux/actionCreactors';
 
 class WordFilter extends Component {
     changeStatus(filterStatus) {
-        this.props.dispatch({ type: 'SET_FILTER_STATUS', filterStatus });
+        this.props.setFilterStatus(filterStatus);
     }
     render() {
         const { filterStatus } = this.props;
@@ -39,4 +40,4 @@ class WordFilter extends Component {
 
 const mapState = state => ({ filterStatus: state.filterStatus });
 
-export default connect(mapState)(WordFilter);
+export default connect(mapState, actionCreactors)(WordFilter);
