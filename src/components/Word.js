@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+function removeWord(en) {
+    return { type: 'REMOVE_WORD', en }
+}
+
+function toggleIsMemorized(en) {
+    return { type: 'TOGGLE_IS_MEMORIZED', en }
+}
+
 class Word extends Component {
     render() {
         const { word } = this.props;
@@ -11,13 +19,13 @@ class Word extends Component {
                 <button
                     className="btn btn-danger"
                     style={{ margin: 3 }}
-                    onClick={() => this.props.dispatch({ type: 'REMOVE_WORD', en: word.en })}
+                    onClick={() => this.props.removeWord(word.en)}
                 >
                     remove
                 </button>
                 <button
                     className="btn btn-primary"
-                    onClick={() => this.props.dispatch({ type: 'TOGGLE_IS_MEMORIZED', en: word.en })}
+                    onClick={() => this.props.toggleIsMemorized(word.en)}
                 >
                     toggle
                 </button>
@@ -26,4 +34,4 @@ class Word extends Component {
     }
 }
 
-export default connect()(Word);
+export default connect(null, { removeWord, toggleIsMemorized })(Word);
