@@ -15,42 +15,11 @@ class ListWords extends Component {
             filterStatus: 'SHOW_ALL',
             isShowForm: false
         }
-        this.onAdd = this.onAdd.bind(this);
-        this.toggleStatus = this.toggleStatus.bind(this);
-        this.onRemoveWord = this.onRemoveWord.bind(this);
-        this.onChangeFilterStatus = this.onChangeFilterStatus.bind(this);
-        this.onHideForm = this.onHideForm.bind(this);
-    }
-
-    onAdd(word) {
-        this.setState({
-            words: [word, ...this.state.words]
-        });
-    }
-
-    onChangeFilterStatus(newStatus) {
-        this.setState({ filterStatus: newStatus })
-    }
-
-    onRemoveWord(en) {
-        const { words } = this.state;
-        this.setState({
-            words: words.filter(x => x.en !== en ) 
-        })
-    }
-
-    toggleStatus(en) {
-        const { words } = this.state;
-        const newWords = this.state.words.map(word => {
-            if (word.en !== en) return word;
-            return { ...word, isMemorized: !word.isMemorized }
-        });
-        this.setState({ words: newWords });
     }
 
     getForm() {
         const { isShowForm } = this.state;
-        if(isShowForm) return <WordForm onAdd={this.onAdd} onHideForm={this.onHideForm} />;
+        if(isShowForm) return <WordForm />;
         return (
             <button
                 className="btn btn-default"
@@ -61,12 +30,8 @@ class ListWords extends Component {
         );
     }
 
-    onHideForm() {
-        this.setState({ isShowForm: false });
-    }
-
     render() {
-        const { words, filterStatus, isShowForm } = this.state;
+        const { words, filterStatus } = this.state;
         const wordsForShow = words.filter(word => {
             if(filterStatus === 'SHOW_ALL') return true;
             if(filterStatus === 'SHOW_FORGOT') return !word.isMemorized;
@@ -74,12 +39,9 @@ class ListWords extends Component {
         });
         return (
             <div style={{ margin: 10 }}>
-                <WordFilter
-                    filterStatus={filterStatus}
-                    onChangeFilterStatus={this.onChangeFilterStatus}
-                />
+                <WordFilter filterStatus={filterStatus} />
                 { this.getForm() }
-                { wordsForShow.map(word => <Word key={word.en} word={word} onRemoveWord={this.onRemoveWord} />) }
+                { wordsForShow.map(word => <Word key={word.en} word={word} />) }
             </div>
         );
     }

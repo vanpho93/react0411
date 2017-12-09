@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class Word extends Component {
     render() {
-        const { word, onRemoveWord } = this.props;
+        const { word } = this.props;
         return (
             <div>
                 <h3 style={{ color: word.isMemorized ? 'green' : 'red' }}>{word.en}</h3>
@@ -10,7 +10,6 @@ export default class Word extends Component {
                 <button
                     className="btn btn-danger"
                     style={{ margin: 3 }}
-                    onClick={() => onRemoveWord(word.en)}
                 >
                     remove
                 </button>

@@ -7,17 +7,6 @@ export default class WordForm extends Component {
             txtEn: '',
             txtVn: '',
         };
-        this.addWord = this.addWord.bind(this);
-    }
-
-    addWord() {
-        this.props.onAdd({
-            en: this.state.txtEn,
-            vn: this.state.txtVn,
-            isMemorized: false
-        });
-        this.setState({ txtEn: '', txtVn: '' });
-        this.props.onHideForm();
     }
 
     render() {
@@ -37,16 +26,10 @@ export default class WordForm extends Component {
                     onChange={event => this.setState({ txtVn: event.target.value })}
                 />
                 <br />
-                <button
-                    className="btn btn-success"
-                    onClick={this.addWord}
-                >
+                <button className="btn btn-success">
                     Add word
                 </button>
-                <button
-                    className="btn btn-warning" 
-                    onClick={this.props.onHideForm}
-                >
+                <button className="btn btn-warning">
                     Cancel
                 </button>
             </div>
