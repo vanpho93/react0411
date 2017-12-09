@@ -37,4 +37,6 @@ class WordFilter extends Component {
     }
 }
 
-export default connect()(WordFilter);
+const mapState = state => ({ filterStatus: state.filterStatus });
+
+export default connect(mapState)(WordFilter);
