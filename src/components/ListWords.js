@@ -3,15 +3,9 @@ import Word from './Word';
 import WordForm from './WordForm';
 import WordFilter from './WordFilter';
 import { connect } from 'react-redux';
+import * as actionCreactors from '../redux/actionCreactors';
 
 class ListWords extends Component {
-    constructor(props) {
-        super(props);
-        this.toggleForm = this.toggleForm.bind(this);
-    }
-    toggleForm() {
-        this.props.dispatch({ type: 'TOGGLE_FORM' });
-    }
     render() {
         const { words, isShowForm, filterStatus } = this.props;
         const filteredWords = words.filter(word => {
@@ -23,7 +17,7 @@ class ListWords extends Component {
             <div style={{ margin: 10 }}>
                 <WordFilter />
                 { isShowForm ? <WordForm /> : (
-                    <button className="btn btn-default" onClick={this.toggleForm}>
+                    <button className="btn btn-default" onClick={this.props.toggleIsShowForm}>
                         Show Form
                     </button>
                 )}
@@ -35,7 +29,7 @@ class ListWords extends Component {
 
 const mapState = state => ({ words: state.words, isShowForm: state.isShowForm, filterStatus: state.filterStatus });
 
-export default connect(mapState)(ListWords);
+export default connect(mapState, actionCreactors)(ListWords);
 
 
 /*

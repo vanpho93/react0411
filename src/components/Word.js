@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-function removeWord(en) {
-    return { type: 'REMOVE_WORD', en }
-}
-
-function toggleIsMemorized(en) {
-    return { type: 'TOGGLE_IS_MEMORIZED', en }
-}
+import * as actionCreactors from '../redux/actionCreactors';
 
 class Word extends Component {
     render() {
@@ -34,4 +27,4 @@ class Word extends Component {
     }
 }
 
-export default connect(null, { removeWord, toggleIsMemorized })(Word);
+export default connect(null, actionCreactors)(Word);
