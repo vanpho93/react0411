@@ -13,7 +13,12 @@ class ListWords extends Component {
         this.props.dispatch({ type: 'TOGGLE_FORM' });
     }
     render() {
-        const { words, isShowForm } = this.props;
+        const { words, isShowForm, filterStatus } = this.props;
+        const filteredWords = words.filter(word => {
+            if (filterStatus === 'SHOW_ALL') return true;
+            if (filterStatus === 'SHOW_MEMORIZED') return word.isMemorized;
+            return !word.isMemorized;
+        });
         return (
             <div style={{ margin: 10 }}>
                 <WordFilter />
@@ -22,13 +27,13 @@ class ListWords extends Component {
                         Show Form
                     </button>
                 )}
-                { words.map(word => <Word key={word.en} word={word} />) }
+                { filteredWords.map(word => <Word key={word.en} word={word} />) }
             </div>
         );
     }
 }
 
-const mapState = state => ({ words: state.words, isShowForm: state.isShowForm });
+const mapState = state => ({ words: state.words, isShowForm: state.isShowForm, filterStatus: state.filterStatus });
 
 export default connect(mapState)(ListWords);
 

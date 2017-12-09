@@ -7,7 +7,7 @@ const defaultState = {
         { en: 'three', vn: 'ba', isMemorized: true },
     ],
     isShowForm: false,
-    filterStatus: 'SHOW_FORGOT' // SHOW_FORGOT, SHOW_MEMORIZED
+    filterStatus: 'SHOW_ALL' // SHOW_FORGOT, SHOW_MEMORIZED
 };
 
 const reducer = (state = defaultState, action) => {
@@ -24,6 +24,7 @@ const reducer = (state = defaultState, action) => {
     }
     if (action.type === 'ADD_WORD') return { ...state, words: [action.word, ...state.words] }
     if (action.type === 'TOGGLE_FORM') return { ...state, isShowForm: !state.isShowForm }
+    if (action.type === 'SET_FILTER_STATUS') return { ...state, filterStatus: action.filterStatus }
     return state;
 };
 

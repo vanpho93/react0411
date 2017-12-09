@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class WordFilter extends Component {
+class WordFilter extends Component {
+    changeStatus(filterStatus) {
+        this.props.dispatch({ type: 'SET_FILTER_STATUS', filterStatus });
+    }
     render() {
         const { filterStatus } = this.props;
         return (
@@ -8,6 +12,7 @@ export default class WordFilter extends Component {
                 <button
                     className="btn btn-primary"
                     disabled={filterStatus === 'SHOW_ALL'}
+                    onClick={() => this.changeStatus('SHOW_ALL')}
                 >
                     Show All
                 </button>
@@ -15,12 +20,14 @@ export default class WordFilter extends Component {
                     className="btn btn-success" 
                     style={{ margin: 3 }}
                     disabled={filterStatus === 'SHOW_MEMORIZED'}
+                    onClick={() => this.changeStatus('SHOW_MEMORIZED')}
                 >
                     Show Memorized
                 </button>
                 <button
                     className="btn btn-warning" 
                     disabled={filterStatus === 'SHOW_FORGOT'}
+                    onClick={() => this.changeStatus('SHOW_FORGOT')}
                 >
                     Show forgot
                 </button>
@@ -29,3 +36,5 @@ export default class WordFilter extends Component {
         );
     }
 }
+
+export default connect()(WordFilter);
