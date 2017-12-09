@@ -16,6 +16,7 @@ class ListWords extends Component {
         const { words, isShowForm } = this.props;
         return (
             <div style={{ margin: 10 }}>
+                <WordFilter />
                 { isShowForm ? <WordForm /> : (
                     <button className="btn btn-default" onClick={this.toggleForm}>
                         Show Form

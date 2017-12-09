@@ -6,7 +6,8 @@ const defaultState = {
         { en: 'two', vn: 'hai', isMemorized: false },
         { en: 'three', vn: 'ba', isMemorized: true },
     ],
-    isShowForm: false
+    isShowForm: false,
+    filterStatus: 'SHOW_FORGOT' // SHOW_FORGOT, SHOW_MEMORIZED
 };
 
 const reducer = (state = defaultState, action) => {
